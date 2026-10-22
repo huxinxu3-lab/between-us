@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createGame,prepareRoll,land,finishTurn,confirmGate,validGame} from '../engine.js';
+test('dice accepts 1–3 only and cannot roll twice',()=>{const g=createGame();assert.equal(prepareRoll(g,6),g);const s=prepareRoll(g,2);assert.equal(prepareRoll(s,3),s);assert.equal(s.target,2);});
+test('checkpoints stop overshoot and preserve extra step',()=>{const g=createGame();g.positions[0]=5;const s=land(prepareRoll(g,3),true);assert.equal(s.positions[0],6);assert.equal(s.status,'gate');assert.equal(s.extra[0],true);});
+test('extra step consumed once and not shared',()=>{const g=land(prepareRoll(createGame(),1),true);assert.equal(g.positions[0],2);assert.deepEqual(g.extra,[false,true]);const next=finishTurn(g);assert.equal(next.turn,1);});
+test('first visitor marks land; later visitor gets owner as chooser',()=>{let g=land(prepareRoll(createGame(),3));assert.equal(g.owners[3],0);assert.equal(g.pending.newMark,true);g=finishTurn(g);g=land(prepareRoll(g,3));assert.equal(g.pending.chooser,0);assert.equal(g.owners[3],0);});
+test('partner chooses at partner square',()=>{const g=createGame();g.positions[0]=4;const s=land(prepareRoll(g,1));assert.equal(s.pending.chooser,1);});
+test('phase can stay unchanged and advances by mutual confirmation only',()=>{const g=createGame();g.positions[0]=5;const s=land(prepareRoll(g,1));assert.equal(confirmGate(s,false).stage,1);const next=confirmGate(s,true);assert.equal(next.stage,2);assert.equal(next.turn,1);});
+test('reaching end finishes for both without exact roll',()=>{const g=createGame();g.positions[0]=18;const s=land(prepareRoll(g,3));assert.equal(s.positions[0],19);assert.equal(s.status,'ended');assert.equal(s.pending,null);});
+test('invalid loaded data rejected; in-progress states survive serialization',()=>{assert.equal(validGame(null),false);assert.equal(validGame({version:1}),false);for(const s of [createGame(),prepareRoll(createGame(),2),land(prepareRoll(createGame(),3))])assert.equal(validGame(JSON.parse(JSON.stringify(s))),true);});
+test('finishing ready turn is ignored',()=>{const g=createGame();assert.equal(finishTurn(g),g);});
+test('second player visiting same checkpoint cannot unlock a later chapter early',()=>{let g=createGame();g.positions=[5,5];g=confirmGate(land(prepareRoll(g,1)),true);assert.equal(g.stage,2);g=confirmGate(land(prepareRoll(g,1)),true);assert.equal(g.stage,2);g.positions[g.turn]=11;g=confirmGate(land(prepareRoll(g,1)),true);assert.equal(g.stage,3);});
