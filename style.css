@@ -3,3 +3,65 @@
 @media(max-width:950px){.app{padding-left:20px;padding-right:20px}.game-layout{grid-template-columns:minmax(0,1fr) 240px;gap:14px}.board-panel{padding:16px}.board{gap:9px}.cell{min-height:97px;padding:8px}.cell .symbol{right:8px}.turn-panel{padding:14px}.turn-content{padding-top:20px}.turn-content h2{font-size:20px}.board-heading .muted{display:none}.intro{padding:23px 0}.topbar{height:80px}}
 @media(max-width:700px){.app{padding:0 16px 15px}.topbar{height:75px}.brand{font-size:16px;gap:8px;letter-spacing:1px}.brandmark{width:34px;height:34px;font-size:20px}.brand small{font-size:8px;letter-spacing:1px}nav{gap:0}nav .quiet{font-size:12px;padding:9px}.intro{align-items:start}.intro>.quiet{white-space:nowrap;padding:5px;font-size:11px}.intro .muted{font-size:12px}.eyebrow{font-size:8px;letter-spacing:1.6px}h1{font-size:29px}.game-layout{display:flex;flex-direction:column;gap:14px}.board-panel{padding:14px}.cell{min-height:81px;padding:7px;border-radius:9px}.cell .symbol{font-size:16px;top:7px;right:6px}.cell .name{font-size:10px;letter-spacing:0}.tokens{top:29px;left:5px;gap:0}.token{width:19px;height:19px;font-size:8px}.board{gap:8px}.board-heading{margin-bottom:14px}.board-footer{font-size:9px;gap:10px}.turn-panel{display:grid;grid-template-columns:1fr 1.5fr;gap:12px}.players{display:flex;flex-direction:column;justify-content:center}.turn-content{padding-top:5px}.turn-content h2{font-size:19px}.turn-content>.muted{min-height:0}.turn-content>.eyebrow{display:none}.dice{width:62px;height:62px;border-radius:16px;margin:15px auto;font-size:26px}.pip{width:9px;height:9px}.pips{gap:5px}.turn-content .hint{display:none}.undo{grid-column:1 / -1;margin:0}.bottomline{font-size:9px}dialog{padding:24px}.task-card{padding:18px}.task-card p{font-size:17px}.task-dialog h2{font-size:23px}.library-tools .quiet{padding:8px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Responsive layouts use the available viewport, including Split View. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-block:24px}
+body{min-height:100svh;overflow-wrap:break-word}
+.app{padding-top:env(safe-area-inset-top,0px);padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));padding-bottom:max(20px,env(safe-area-inset-bottom,0px))}
+.game-layout>*{min-width:0}.topbar nav{flex-shrink:0}.intro>div{min-width:0}
+button,.file-label{touch-action:manipulation}button,.quiet,.file-label{min-height:44px}
+dialog{max-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 32px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.task-card h3,.task-card p,.task-card li{overflow-wrap:anywhere}
+.toast{bottom:max(24px,env(safe-area-inset-bottom,0px))}
+
+/* Tablet landscape: the board and controls share one comfortable screen. */
+@media(min-width:1000px) and (min-height:600px){
+ .topbar{height:76px}.intro{padding:22px 0}.intro h1{font-size:36px;margin:8px 0}
+ .game-layout{grid-template-columns:minmax(0,1fr) clamp(270px,25vw,330px);gap:22px;align-items:stretch}
+ .board-panel{padding:22px}.board{gap:14px}.board-heading{margin-bottom:18px}
+ .cell{min-height:clamp(102px,calc((100dvh - 400px)/4),164px);padding:12px}.cell .name{font-size:14px}.cell .num{font-size:12px}.cell .symbol{font-size:23px}
+ .token{width:25px;height:25px;font-size:11px}.tokens{top:40px}
+ .turn-content{padding-top:24px}.turn-content h2{font-size:24px}.turn-content>.muted{font-size:14px}
+ .turn-panel .primary,.turn-panel .secondary{min-height:52px}.player{font-size:14px}.player small{font-size:12px}
+ .board-footer{font-size:12px}.bottomline{padding-block:14px}
+ .task-dialog{width:min(820px,calc(100% - 64px));padding:34px}.task-card p,.task-card li{font-size:20px}.task-card h3{font-size:23px}
+}
+
+/* Portrait tablet and narrow windows: wide board, compact horizontal controls. */
+@media(min-width:600px) and (max-width:999px) and (min-height:600px), (min-width:1000px) and (orientation:portrait){
+ .game-layout{grid-template-columns:1fr;gap:18px}.topbar{height:80px}.intro{padding:24px 0}
+ .board-panel{padding:22px}.board{gap:14px}.cell{min-height:clamp(104px,12vw,144px);padding:12px}.cell .name{font-size:14px}.cell .symbol{font-size:22px}.tokens{top:39px}
+ .board-heading .muted{display:block}.board-footer{font-size:12px}
+ .turn-panel{display:grid;grid-template-columns:210px minmax(0,1fr);gap:14px 24px;padding:22px}
+ .players{display:flex;flex-direction:column;justify-content:center}.player{padding:14px;font-size:14px}.player small{font-size:12px}
+ .turn-content{padding:0;display:grid;grid-template-columns:80px minmax(0,1fr);gap:8px 20px;align-items:center;text-align:left}
+ .turn-content>.eyebrow{display:none}.turn-content h2{grid-column:2;margin:0;font-size:24px}.turn-content>.muted{grid-column:2;margin:0;min-height:0;font-size:14px}
+ .dice{grid-column:1;grid-row:1 / 4;width:76px;height:76px;margin:0}.turn-content .actions{grid-column:2}.turn-content .hint{display:none}.undo{grid-column:1 / -1;margin:0}
+ .task-dialog{width:min(760px,calc(100% - 48px))}.task-card p,.task-card li{font-size:19px}
+}
+
+/* Phone portrait: readable tiles and a thumb-friendly control panel. */
+@media(max-width:599px){
+ .app{padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px));padding-bottom:max(16px,env(safe-area-inset-bottom,0px))}
+ .topbar{height:64px;gap:8px}.brand{font-size:16px;gap:7px}.brandmark{width:30px;height:30px;font-size:18px}.brand small{font-size:8px;letter-spacing:1px}.topbar nav{gap:0}.topbar .quiet{padding:8px;font-size:12px;min-width:44px}
+ .intro{padding:17px 0;gap:8px}.intro h1{font-size:28px;letter-spacing:1px;margin:7px 0}.intro .eyebrow{font-size:8px;letter-spacing:1.1px}.intro .muted{font-size:12px}.intro>.quiet{padding:0 4px;font-size:11px}
+ .game-layout{display:flex;flex-direction:column;gap:12px}.board-panel{padding:12px;border-radius:16px}.board-heading{font-size:12px;margin-bottom:12px}.board-heading .muted{display:none}
+ .board{gap:7px}.cell{min-height:clamp(70px,18vw,90px);padding:7px;border-radius:9px}.cell .name{font-size:11px;letter-spacing:0}.cell .num{font-size:10px}.cell .symbol{font-size:16px;right:6px;top:7px}.tokens{top:27px;left:5px;gap:1px}.token{width:20px;height:20px;font-size:9px}.owner{bottom:8px;right:6px;width:5px;height:5px}
+ .board-footer{gap:8px 12px;font-size:10px;margin-top:12px}.board-footer span:last-child{flex-basis:100%;justify-content:center}
+ .turn-panel{display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:16px}.players{display:grid;grid-template-columns:1fr 1fr;gap:8px}.player{padding:9px 10px;font-size:13px}.player small{font-size:11px;margin-top:4px}
+ .turn-content{display:grid;grid-template-columns:64px minmax(0,1fr);gap:5px 15px;padding:0;text-align:left}.turn-content>.eyebrow,.turn-content>.hint{display:none}.turn-content h2{grid-column:2;margin:0;font-size:20px;overflow-wrap:anywhere}.turn-content>.muted{grid-column:2;margin:0;min-height:0;font-size:12px}
+ .dice{grid-column:1;grid-row:1 / 4;width:59px;height:59px;margin:0 0 0 2px;border-radius:15px}.turn-content .actions{grid-column:2;gap:7px;margin-top:6px}.turn-content .primary,.turn-content .secondary{font-size:14px;min-height:48px;padding:10px}
+ .undo{margin:0;min-height:44px;padding:6px}.bottomline{font-size:10px;padding:13px 0;flex-wrap:wrap;gap:5px}
+ dialog{width:calc(100% - 20px);padding:20px;border-radius:18px}.task-dialog{width:calc(100% - 20px)}.dialog-top{gap:6px}.dialog-top .eyebrow{font-size:9px;letter-spacing:1px}.dialog-top .quiet{padding:8px;font-size:12px;white-space:nowrap}
+ .task-cards{grid-template-columns:1fr;gap:12px;margin-block:16px}.task-card{padding:20px}.task-card h3{font-size:21px}.task-card p,.task-card li{font-size:18px}.task-bottom{gap:4px}.task-bottom .quiet{flex:1}
+ .library-tools{display:grid;grid-template-columns:1fr 1fr;gap:10px}.library-tools>*{min-width:0}.filter-label{min-width:0}.library-tools .quiet,.library-tools .secondary{font-size:14px}.library-item .item-head{gap:4px}.library-item .quiet{padding-inline:9px}
+}
+
+/* A phone turned sideways keeps controls beside the board. */
+@media(orientation:landscape) and (max-height:599px){
+ .app{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}.topbar{height:56px}.brand small{display:none}.intro{padding:10px 0}.intro .eyebrow,.intro .muted{display:none}.intro h1{font-size:24px;margin:0}
+ .game-layout{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:12px}.board-panel{padding:12px}.board-heading{margin-bottom:10px}.board{gap:7px}.cell{min-height:66px;padding:7px}.cell .name{font-size:11px}.tokens{top:24px}.token{width:18px;height:18px;font-size:8px}.board-footer{margin-top:10px;font-size:10px}
+ .turn-panel{display:flex;flex-direction:column;padding:12px;gap:10px}.players{display:grid;grid-template-columns:1fr 1fr}.player{padding:7px;font-size:12px}.player small{font-size:10px}.turn-content{display:block;padding:0;text-align:center}.turn-content>.eyebrow,.turn-content>.hint,.turn-content>.muted{display:none}.turn-content h2{font-size:18px;margin:0}.dice{width:48px;height:48px;margin:12px auto;border-radius:12px;font-size:25px}.pips{gap:5px}.pip{width:8px;height:8px}.turn-content .actions{gap:6px}.turn-content .primary,.turn-content .secondary{padding:8px;font-size:13px;min-height:44px}.undo{margin:0}.bottomline{padding-block:10px}
+ dialog{max-height:calc(100dvh - 20px);padding:20px}.task-cards{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+}
+@media(hover:none){.quiet:hover{background:transparent}}
