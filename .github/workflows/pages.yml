@@ -22,6 +22,11 @@ jobs:
         with:
           node-version: '22'
       - run: npm test
+      - name: Check browser scripts
+        run: |
+          node --check app.js
+          node --check engine.js
+          node --check sw.js
       - uses: actions/configure-pages@v5
       - name: Prepare public files
         run: |
